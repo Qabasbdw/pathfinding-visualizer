@@ -11,6 +11,7 @@ app.innerHTML = `
 const gridElement = document.querySelector<HTMLDivElement>('#grid')!
 gridElement.style.gridTemplateColumns = `repeat(${GridArr_X}, 20px)`
 
+
 for (let y = 0; y < GridArr_Y; y++) {
   for (let x = 0; x < GridArr_X; x++) {
     const cell = document.createElement('div')
@@ -36,7 +37,20 @@ for (let y = 0; y < GridArr_Y; y++) {
         cell.classList.add('wall')
       }
     })
-
     gridElement.appendChild(cell)
+    // cell.addEventListener ('mousedown',function(){
+    //   if (cell.classList.contains('start')) return
+    //   if (cell.classList.contains('goal')) return
+    //   if (ArrGrid[x][y] === true) {
+    //     ArrGrid[x][y] = false
+    //     cell.classList.remove('wall')
+    //   } else {
+    //     ArrGrid[x][y] = true
+    //     cell.classList.add('wall')
+    //   }
+      
+      
+    // })
+    
   }
 }
