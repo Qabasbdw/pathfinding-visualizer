@@ -1,3 +1,8 @@
+import './style.css'
+
+
+
+
 export const GridArr_X : number = 41;
 export const GridArr_Y :number =21;
 export let  ArrGrid :boolean [][]=[];
@@ -7,6 +12,20 @@ for (let i = 0; i < GridArr_X; i++) {
         ArrGrid[i][j] = false;
     }
 }
+export function ClearWalls () :void{
+    for (let y = 0; y < GridArr_Y; y++) {
+      for (let x = 0; x < GridArr_X; x++) {
+        ArrGrid[y][x] = false;
+      }}
+
+
+
+    
+
+
+
+}
+
 export type Cell ={PosX :number , PosY:number};
 export const start :Cell ={PosX:10 ,PosY:4};
 export const Goal :Cell ={PosX:32,PosY :18};
