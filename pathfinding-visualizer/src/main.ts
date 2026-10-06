@@ -94,3 +94,5 @@ clearButton.addEventListener('click', function () {
   ClearWalls_colors()   
 })
 
+
+

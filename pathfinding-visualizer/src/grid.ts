@@ -15,7 +15,7 @@ for (let i = 0; i < GridArr_X; i++) {
 export function ClearWalls () :void{
     for (let y = 0; y < GridArr_Y; y++) {
       for (let x = 0; x < GridArr_X; x++) {
-        ArrGrid[y][x] = false;
+        ArrGrid[x][y] = false;
       }}
 
 
@@ -29,4 +29,18 @@ export function ClearWalls () :void{
 export type Cell ={PosX :number , PosY:number};
 export const start :Cell ={PosX:10 ,PosY:4};
 export const Goal :Cell ={PosX:32,PosY :18};
+
+
+export type VisitedCell ={
+    type :"visited";
+    cell:Cell;
+    
+}
+export type PathCell = {
+  type: "path";
+  path: Cell[];
+};
+
+export type Step = PathCell| VisitedCell;
+
 
