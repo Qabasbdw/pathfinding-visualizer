@@ -1,5 +1,8 @@
 import './style.css'
 import { GridArr_X, GridArr_Y, ArrGrid, start, Goal ,ClearWalls} from './grid'
+import { BFS } from './algorithms/bfs'
+import type {Step} from './grid'
+
 
 
 
@@ -93,6 +96,34 @@ clearButton.addEventListener('click', function () {
   ClearWalls()          
   ClearWalls_colors()   
 })
+
+
+document.querySelector('#RunButton')!.addEventListener('click', run)
+
+function drawStep(step: Step) {
+  if (step.type === 'visited') {
+    const el = document.getElementById(`cell-${step.cell.PosX}-${step.cell.PosY}`)!
+    el.classList.add('visited')
+  } else {
+    for (const c of step.path) {
+      document.getElementById(`cell-${c.PosX}-${c.PosY}`)!.classList.add('path')
+    }
+  }
+}
+
+
+function run() {
+  const gen = BFS(start, Goal)
+
+  const timer = setInterval(function () {
+    const result = gen.next()
+    if (result.done) {
+      clearInterval(timer)   
+      return
+    }
+    drawStep(result.value)
+  }, 20)                     
+}
 
 
 

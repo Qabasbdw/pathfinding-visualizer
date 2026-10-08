@@ -10,7 +10,10 @@
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
 }
 .cell       { width: 20px; height: 20px; background: white; }
+.cell.visited { background: lightblue; }
+.cell.path    { background: gold; }
 .cell.wall  { background: #333; }
 .cell.start { background: green; }
 .cell.goal  { background: red; }
 .cell       { cursor: pointer; }
+

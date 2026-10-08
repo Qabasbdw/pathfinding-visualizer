@@ -30,14 +30,17 @@ export function* BFS(start:Cell ,Goal:Cell): Generator<Step>{
      const queue = new Queue<Cell>();
      queue.enqueue(start);
      const visited : boolean [][]=[];
+      const cameFrom: (Cell | null)[][] = [];
      
      for (let x = 0; x < GridArr_X; x++) {
-          visited[x] = []
+          visited[x] = [];
+          cameFrom[x] = [];
           for (let y = 0; y < GridArr_Y; y++) {
                if (x === start.PosX && y === start.PosY) visited[x][y] = true ;
                else{
                     visited[x][y] = false;
                }
+               cameFrom[x][y] = null; 
                }}
      while (!queue.isEmpty()){
           const Curr=queue.dequeue();
@@ -47,7 +50,16 @@ export function* BFS(start:Cell ,Goal:Cell): Generator<Step>{
 
 
 
-          if (Curr.PosX === Goal.PosX &&Curr.PosY===Goal.PosY)return;//////////
+          if (Curr.PosX === Goal.PosX && Curr.PosY === Goal.PosY) {
+               const path: Cell[] = [];
+               let step: Cell | null = Curr;
+               while (step !== null) {
+                    path.unshift(step);
+                    step = cameFrom[step.PosX][step.PosY];
+               }
+               yield { type: 'path', path: path };
+               return;
+    }//////////
           
           
           const CurrUp={PosX:Curr.PosX ,PosY:Curr.PosY-1};
@@ -60,6 +72,7 @@ export function* BFS(start:Cell ,Goal:Cell): Generator<Step>{
                !visited[CurrUp.PosX][CurrUp.PosY]){
                visited[CurrUp.PosX][CurrUp.PosY]=true;
                queue.enqueue({PosX:Curr.PosX ,PosY:Curr.PosY-1});
+               cameFrom[CurrUp.PosX][CurrUp.PosY] = Curr;
 
           }
           if (CurrDown.PosY< GridArr_Y &&
@@ -67,18 +80,21 @@ export function* BFS(start:Cell ,Goal:Cell): Generator<Step>{
                !visited[CurrDown.PosX][CurrDown.PosY]){
                visited[CurrDown.PosX][CurrDown.PosY]=true;
                queue.enqueue({PosX:Curr.PosX ,PosY:Curr.PosY+1});
+               cameFrom[CurrDown.PosX][CurrDown.PosY] = Curr; 
           }
           if (CurrRight.PosX <GridArr_X&&
                !ArrGrid[CurrRight.PosX][CurrRight.PosY] 
                &&!visited[CurrRight.PosX][CurrRight.PosY]){
                visited[CurrRight.PosX][CurrRight.PosY]=true;
                queue.enqueue({PosX:Curr.PosX+1,PosY:Curr.PosY});
+               cameFrom[CurrRight.PosX][CurrRight.PosY] = Curr; 
           }
           if (CurrLeft.PosX >=0&&
                !ArrGrid[CurrLeft.PosX][CurrLeft.PosY]&& 
                !visited[CurrLeft.PosX][CurrLeft.PosY]){
                visited[CurrLeft.PosX][CurrLeft.PosY]=true;
                queue.enqueue({PosX:Curr.PosX-1 ,PosY:Curr.PosY});
+               cameFrom[CurrLeft.PosX][CurrLeft.PosY] = Curr; 
           }
 
 
