@@ -99,6 +99,7 @@ clearButton.addEventListener('click', function () {
 
 
 document.querySelector('#RunButton')!.addEventListener('click', run)
+document.querySelector('#ResetButton')!.addEventListener('click', reset)
 
 function drawStep(step: Step) {
   if (step.type === 'visited') {
@@ -110,6 +111,17 @@ function drawStep(step: Step) {
     }
   }
 }
+function reset() {
+  for (let y = 0; y < GridArr_Y; y++) {
+    for (let x = 0; x < GridArr_X; x++) {
+      const cell = document.getElementById(`cell-${x}-${y}`)!
+      cell.classList.remove('visited')
+      cell.classList.remove('path')
+    }
+  }
+}
+
+
 
 
 function run() {
