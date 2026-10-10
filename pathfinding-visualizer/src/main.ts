@@ -1,6 +1,7 @@
 import './style.css'
 import { GridArr_X, GridArr_Y, ArrGrid, start, Goal ,ClearWalls} from './grid'
 import { BFS } from './algorithms/bfs'
+import { DFS } from './algorithms/dfs'
 import type {Step} from './grid'
 
 
@@ -12,6 +13,8 @@ import type {Step} from './grid'
 
 const clearButton = document.querySelector<HTMLButtonElement>('#ClearButton')!
 const gridElement = document.querySelector<HTMLDivElement>('#grid')!
+const algorithmSelect = document.querySelector<HTMLSelectElement>('#algorithm')!
+
 
 
 
@@ -125,7 +128,16 @@ function reset() {
 
 
 function run() {
-  const gen = BFS(start, Goal)
+  let gen: Generator<Step>
+  if (algorithmSelect.value ==='bfs')
+    {gen = BFS(start, Goal)}
+  else if (algorithmSelect.value ==='dfs')
+    {gen = DFS(start, Goal)}
+  else {
+    gen = BFS(start, Goal) 
+    /////////////
+  }
+    
 
   const timer = setInterval(function () {
     const result = gen.next()
