@@ -2,6 +2,8 @@ import './style.css'
 import { GridArr_X, GridArr_Y, ArrGrid, start, Goal ,ClearWalls} from './grid'
 import { BFS } from './algorithms/bfs'
 import { DFS } from './algorithms/dfs'
+import { Dijkstra } from './algorithms/dijkstra'
+
 import type {Step} from './grid'
 
 
@@ -129,10 +131,13 @@ function reset() {
 
 function run() {
   let gen: Generator<Step>
+  reset()
   if (algorithmSelect.value ==='bfs')
     {gen = BFS(start, Goal)}
   else if (algorithmSelect.value ==='dfs')
     {gen = DFS(start, Goal)}
+  else if (algorithmSelect.value === 'dijkstra')
+    { gen = Dijkstra(start, Goal) }
   else {
     gen = BFS(start, Goal) 
     /////////////
