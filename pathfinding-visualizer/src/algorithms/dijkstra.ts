@@ -55,7 +55,7 @@ export function* Dijkstra(start:Cell ,Goal:Cell): Generator<Step>{
             const CurrDown = { PosX: Curr.PosX, PosY: Curr.PosY + 1 }
             const CurrRight = { PosX: Curr.PosX + 1, PosY: Curr.PosY }
             const CurrLeft = { PosX: Curr.PosX - 1, PosY: Curr.PosY }
-            const newDist = dist[Curr.PosX][Curr.PosY] + 1      // cost of one step = 1
+            const newDist = dist[Curr.PosX][Curr.PosY] + 1      
 
             if (CurrUp.PosY >= 0 &&
                 !ArrGrid[CurrUp.PosX][CurrUp.PosY] &&
