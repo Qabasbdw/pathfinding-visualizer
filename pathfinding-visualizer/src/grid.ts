@@ -19,11 +19,13 @@ export function ClearWalls () :void{
       }}
 
 
-
-    
-
-
-
+}
+export let ArrWeight: number[][] = [];
+for (let i = 0; i < GridArr_X; i++) {
+    ArrWeight[i] = [];
+    for (let j = 0; j < GridArr_Y; j++) {
+        ArrWeight[i][j] = 1;
+    }
 }
 
 export type Cell ={PosX :number , PosY:number};

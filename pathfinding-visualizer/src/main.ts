@@ -1,5 +1,5 @@
 import './style.css'
-import { GridArr_X, GridArr_Y, ArrGrid, start, Goal ,ClearWalls} from './grid'
+import { GridArr_X, GridArr_Y, ArrGrid, start, Goal ,ClearWalls,ArrWeight} from './grid'
 import { BFS } from './algorithms/bfs'
 import { DFS } from './algorithms/dfs'
 import { Dijkstra } from './algorithms/dijkstra'
@@ -16,6 +16,8 @@ import type {Step} from './grid'
 const clearButton = document.querySelector<HTMLButtonElement>('#ClearButton')!
 const gridElement = document.querySelector<HTMLDivElement>('#grid')!
 const algorithmSelect = document.querySelector<HTMLSelectElement>('#algorithm')!
+const drawMode = document.querySelector<HTMLSelectElement>('#drawMode')!
+
 
 
 
@@ -46,6 +48,21 @@ for (let y = 0; y < GridArr_Y; y++) {
     if (ArrGrid[x][y]) cell.classList.add('wall')
     if (x === start.PosX && y === start.PosY) cell.classList.add('start')
     if (x === Goal.PosX && y === Goal.PosY) cell.classList.add('goal')
+    function paint() {
+      if (cell.classList.contains('start')) return
+      if (cell.classList.contains('goal')) return
+
+      if (drawMode.value === 'weight') {
+        ArrWeight[x][y] = AddWalls ? 5 : 1      
+        if (AddWalls) cell.classList.add('weight')
+        else cell.classList.remove('weight')
+      } else {
+        ArrGrid[x][y] = AddWalls
+        if (AddWalls) cell.classList.add('wall')
+        else cell.classList.remove('wall')
+      }
+    }
+
       
 
     
@@ -60,18 +77,19 @@ for (let y = 0; y < GridArr_Y; y++) {
       drawing = true                         
       AddWalls = !ArrGrid[x][y]              
 
-      ArrGrid[x][y] = AddWalls
-      if (AddWalls) cell.classList.add('wall')
-      else cell.classList.remove('wall')
+      if (drawMode.value === 'weight') {
+        AddWalls = ArrWeight[x][y] === 1
+      } else {
+        AddWalls = !ArrGrid[x][y]
+      }
+      paint()
       })
     cell.addEventListener('mouseover', function (){
       if ( drawing == false )return
       
       if (cell.classList.contains('start')) return
       if (cell.classList.contains('goal')) return
-      ArrGrid[x][y] = AddWalls
-      if (AddWalls) cell.classList.add('wall')
-      else cell.classList.remove('wall')
+      paint()
 
 
     })

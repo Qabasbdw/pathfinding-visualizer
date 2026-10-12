@@ -1,4 +1,4 @@
-import {GridArr_X, GridArr_Y, ArrGrid, start, Goal ,ClearWalls} from '../grid'
+import {GridArr_X, GridArr_Y, ArrGrid, start, Goal ,ClearWalls,ArrWeight} from '../grid'
 import type {Cell,Step} from '../grid'
 import  {Queue} from './bfs'
 export function* Dijkstra(start:Cell ,Goal:Cell): Generator<Step>{
@@ -55,35 +55,44 @@ export function* Dijkstra(start:Cell ,Goal:Cell): Generator<Step>{
             const CurrDown = { PosX: Curr.PosX, PosY: Curr.PosY + 1 }
             const CurrRight = { PosX: Curr.PosX + 1, PosY: Curr.PosY }
             const CurrLeft = { PosX: Curr.PosX - 1, PosY: Curr.PosY }
-            const newDist = dist[Curr.PosX][Curr.PosY] + 1      
+            //const newDist = dist[Curr.PosX][Curr.PosY] + 1      
 
             if (CurrUp.PosY >= 0 &&
-                !ArrGrid[CurrUp.PosX][CurrUp.PosY] &&
-                newDist < dist[CurrUp.PosX][CurrUp.PosY]) {
-                dist[CurrUp.PosX][CurrUp.PosY] = newDist
-                cameFrom[CurrUp.PosX][CurrUp.PosY] = Curr
-                list.push(CurrUp)
+                !ArrGrid[CurrUp.PosX][CurrUp.PosY]) {
+                const newDist = dist[Curr.PosX][Curr.PosY] + ArrWeight[CurrUp.PosX][CurrUp.PosY]
+                if (newDist < dist[CurrUp.PosX][CurrUp.PosY]) {
+                    dist[CurrUp.PosX][CurrUp.PosY] = newDist
+                    cameFrom[CurrUp.PosX][CurrUp.PosY] = Curr
+                    list.push(CurrUp)
+                }
             }
+
             if (CurrDown.PosY < GridArr_Y &&
-                !ArrGrid[CurrDown.PosX][CurrDown.PosY] &&
-                newDist < dist[CurrDown.PosX][CurrDown.PosY]) {
-                dist[CurrDown.PosX][CurrDown.PosY] = newDist
-                cameFrom[CurrDown.PosX][CurrDown.PosY] = Curr
-                list.push(CurrDown)
+                !ArrGrid[CurrDown.PosX][CurrDown.PosY]) {
+                const newDist = dist[Curr.PosX][Curr.PosY] + ArrWeight[CurrDown.PosX][CurrDown.PosY]
+                if (newDist < dist[CurrDown.PosX][CurrDown.PosY]) {
+                    dist[CurrDown.PosX][CurrDown.PosY] = newDist
+                    cameFrom[CurrDown.PosX][CurrDown.PosY] = Curr
+                    list.push(CurrDown)
+                }
             }
             if (CurrRight.PosX < GridArr_X &&
-                !ArrGrid[CurrRight.PosX][CurrRight.PosY] &&
-                newDist < dist[CurrRight.PosX][CurrRight.PosY]) {
-                dist[CurrRight.PosX][CurrRight.PosY] = newDist
-                cameFrom[CurrRight.PosX][CurrRight.PosY] = Curr
-                list.push(CurrRight)
+                !ArrGrid[CurrRight.PosX][CurrRight.PosY]) {
+                const newDist = dist[Curr.PosX][Curr.PosY] + ArrWeight[CurrRight.PosX][CurrRight.PosY]
+                if (newDist < dist[CurrRight.PosX][CurrRight.PosY]) {
+                    dist[CurrRight.PosX][CurrRight.PosY] = newDist
+                    cameFrom[CurrRight.PosX][CurrRight.PosY] = Curr
+                    list.push(CurrRight)
+                }
             }
             if (CurrLeft.PosX >= 0 &&
-                !ArrGrid[CurrLeft.PosX][CurrLeft.PosY] &&
-                newDist < dist[CurrLeft.PosX][CurrLeft.PosY]) {
-                dist[CurrLeft.PosX][CurrLeft.PosY] = newDist
-                cameFrom[CurrLeft.PosX][CurrLeft.PosY] = Curr
-                list.push(CurrLeft)
+                !ArrGrid[CurrLeft.PosX][CurrLeft.PosY]) {
+                const newDist = dist[Curr.PosX][Curr.PosY] + ArrWeight[CurrLeft.PosX][CurrLeft.PosY]
+                if (newDist < dist[CurrLeft.PosX][CurrLeft.PosY]) {
+                    dist[CurrLeft.PosX][CurrLeft.PosY] = newDist
+                    cameFrom[CurrLeft.PosX][CurrLeft.PosY] = Curr
+                    list.push(CurrLeft)
+                }
             }
 }
 
