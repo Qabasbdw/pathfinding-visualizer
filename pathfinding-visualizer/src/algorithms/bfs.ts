@@ -1,4 +1,4 @@
-import {GridArr_X, GridArr_Y, ArrGrid, start, Goal ,ClearWalls} from '../grid'
+import {GridArr_X, GridArr_Y, ArrGrid} from '../grid'
 import type {Cell,Step} from '../grid'
 ///////
 export class Queue<T> {

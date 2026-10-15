@@ -1,8 +1,6 @@
-import {GridArr_X, GridArr_Y, ArrGrid, start, Goal ,ClearWalls,ArrWeight} from '../grid'
+import {GridArr_X, GridArr_Y, ArrGrid,ArrWeight} from '../grid'
 import type {Cell,Step} from '../grid'
-import  {Queue} from './bfs'
 export function* Dijkstra(start:Cell ,Goal:Cell): Generator<Step>{
-    const queue = new Queue<Cell>();/////
     const list:Cell []=[start];
 
     const visited : boolean [][]=[];

@@ -3,6 +3,7 @@ import { GridArr_X, GridArr_Y, ArrGrid, start, Goal ,ClearWalls,ArrWeight} from 
 import { BFS } from './algorithms/bfs'
 import { DFS } from './algorithms/dfs'
 import { Dijkstra } from './algorithms/dijkstra'
+import { AStar } from './algorithms/astar'
 
 import type {Step} from './grid'
 
@@ -157,7 +158,7 @@ function run() {
   else if (algorithmSelect.value === 'dijkstra')
     { gen = Dijkstra(start, Goal) }
   else {
-    gen = BFS(start, Goal) 
+    gen = AStar(start, Goal) 
     /////////////
   }
     
