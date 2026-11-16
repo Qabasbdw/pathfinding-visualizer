@@ -204,10 +204,13 @@ function run() {
   }
     
 
-  const timer = setInterval(function () {
+  runButton.textContent = 'Stop'
+  runButton.classList.add('running')
+
+  timer = setInterval(function () {
     const result = gen.next()
     if (result.done) {
-      clearInterval(timer)   
+      StopRun()
       return
     }
     drawStep(result.value)
