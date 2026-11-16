@@ -18,3 +18,8 @@
 .cell.goal  { background: red; }
 .cell       { cursor: pointer; }
 
+
+#RunButton.running {
+  background: red;
+  color: white;
+}

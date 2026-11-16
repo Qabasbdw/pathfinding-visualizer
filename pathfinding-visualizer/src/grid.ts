@@ -28,6 +28,13 @@ for (let i = 0; i < GridArr_X; i++) {
     }
 }
 
+export function ClearWeights () :void{
+    for (let y = 0; y < GridArr_Y; y++) {
+      for (let x = 0; x < GridArr_X; x++) {
+        ArrWeight[x][y] = 1;
+      }}
+}
+
 export type Cell ={PosX :number , PosY:number};
 export const start :Cell ={PosX:10 ,PosY:4};
 export const Goal :Cell ={PosX:32,PosY :18};

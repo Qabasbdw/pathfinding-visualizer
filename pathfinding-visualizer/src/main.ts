@@ -1,9 +1,11 @@
 import './style.css'
-import { GridArr_X, GridArr_Y, ArrGrid, start, Goal ,ClearWalls,ArrWeight} from './grid'
+import { GridArr_X, GridArr_Y, ArrGrid, start, Goal ,ClearWalls,ClearWeights,ArrWeight} from './grid'
 import { BFS } from './algorithms/bfs'
 import { DFS } from './algorithms/dfs'
 import { Dijkstra } from './algorithms/dijkstra'
 import { AStar } from './algorithms/astar'
+
+import { Grid1, Grid2, LoadGrid } from './maze'
 
 import type {Step} from './grid'
 
@@ -118,12 +120,51 @@ window.addEventListener('mouseup', function () {
 })
 clearButton.addEventListener('click', function () {
   ClearWalls()          
-  ClearWalls_colors()   
+  ClearWalls_colors()
+})
+document.querySelector('#ClearWeightsButton')!.addEventListener('click', function () {
+  ClearWeights()
+  ColorGrid()
 })
 
 
-document.querySelector('#RunButton')!.addEventListener('click', run)
-document.querySelector('#ResetButton')!.addEventListener('click', reset)
+function ColorGrid(): void {
+  for (let y = 0; y < GridArr_Y; y++) {
+    for (let x = 0; x < GridArr_X; x++) {
+      const cell = document.getElementById(`cell-${x}-${y}`)!
+      cell.classList.toggle('wall', ArrGrid[x][y])
+      cell.classList.toggle('weight', ArrWeight[x][y] === 5)
+    }
+  }
+}
+
+function ShowGrid(grid: string[]): void {
+  reset()
+  LoadGrid(grid)
+  ColorGrid()
+}
+
+document.querySelector('#Grid1Button')!.addEventListener('click', () => ShowGrid(Grid1))
+document.querySelector('#Grid2Button')!.addEventListener('click', () => ShowGrid(Grid2))
+
+const runButton = document.querySelector<HTMLButtonElement>('#RunButton')!
+let timer: number | null = null   // null = not running
+
+runButton.addEventListener('click', function () {
+  if (timer !== null) StopRun()
+  else run()
+})
+document.querySelector('#ResetButton')!.addEventListener('click', function () {
+  StopRun()
+  reset()
+})
+
+function StopRun(): void {
+  if (timer !== null) clearInterval(timer)
+  timer = null
+  runButton.textContent = 'Visualize'
+  runButton.classList.remove('running')
+}
 
 function drawStep(step: Step) {
   if (step.type === 'visited') {
